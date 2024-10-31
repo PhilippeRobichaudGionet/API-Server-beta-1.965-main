@@ -1,0 +1,25 @@
+body{
+    font-family:Arial, Helvetica, sans-serif;
+}
+#News{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#Category{
+    color:blue;
+    text-transform: uppercase;
+}
+#Title{
+}
+#Image{
+
+}
+#Date{
+    color: gray;
+    margin-top: 0;
+    font-size: 14px;
+}
+#Desc{
+    font-size: 18px;
+}
