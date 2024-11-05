@@ -5,6 +5,12 @@ body{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+    background-color: white;
+    border-radius: 5px;
+}
+#News:hover{
+    background-color: lightgray;
+
 }
 #Category{
     color:blue;
@@ -22,4 +28,13 @@ body{
 }
 #Desc{
     font-size: 18px;
+}
+.Btn{
+    background-color:#0000e8;
+    color: white;
+    border-radius: 5px;
+    padding: 6px;
+}
+#BtnSection{
+    float: right;
 }
