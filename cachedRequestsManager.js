@@ -10,6 +10,7 @@ global.cachedRequests = [];
 global.cachedRequestsCleanerStarted = false;
 
 export default class CachedRequestsManager {
+    
     static add(url, content, ETag = "") {
         if (!cachedRequestsCleanerStarted) {
             cachedRequestsCleanerStarted = true;
