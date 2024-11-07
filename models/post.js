@@ -2,7 +2,7 @@ import Model from './model.js';
 
 export default class Post extends Model {
     constructor() {
-        super(true);
+        super(true /* secured Id */);
 
         this.addField('Title', 'string');
         this.addField('Text', 'string');
