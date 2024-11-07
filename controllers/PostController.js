@@ -23,8 +23,6 @@ export default
         const { Title, Text, Category } = this.params;
 
         let posts = this.repository.getAll();
-
-        // Filtrage par mot-clé dans le titre ou texte
         if (Title || Text) {
             const MotFiltre = (Title || Text).toLowerCase();
             posts = posts.filter(post =>
