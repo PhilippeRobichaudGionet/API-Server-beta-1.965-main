@@ -4,22 +4,46 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="CSS/style.css">
+        <link rel="stylesheet" href="CSS/site.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <title>Travail Personnel - Philippe Robichaud-Gionet / Thierry Becker</title>
     </head>
     <body>
-        <div id="News">
-            <div id="BtnSection" hidden>
-                <button id="Edit" class="Btn"><i class="fa-solid fa-pencil"></i></button>
-                <button id="Delete" class="Btn"><i class="fa-solid fa-xmark"></i></button>
+        <div id="main">
+            <div id="header">
+                <img src="Image/News-Logo.jpg" class="appLogo" alt="Nouvelle" title="Nouvelle">
+                <h4 id="actionTitle">Fil de nouvelles</h4>
+
+                <i class="cmdIcon fa fa-search"></i>
+                <!--Add-->
+                <i id="abort" class="cmdIcon fa fa-times" title="Annuler"></i>
+
+                <div class="dropdown ms-auto">
+                    <div data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="cmdIcon fa fa-ellipsis-vertical"></i>
+                    </div>
+                <div class="dropdown-menu noselect">
+                    <div class="dropdown-item" id="aboutCmd">
+                        <i class="menuIcon fa fa-info-circle mx-2"></i> À propos...
+                    </div>
+                </div>
             </div>
-            <h3 id="Category"></h3>
-            <h1 id="Title"></h1>
-            <img id="Image" src=""/>
-            <p id="Date"></p>
-            <p id="Desc"></p>
         </div>
-    </body>
+        <div id="content"></div>
+            <div id="News">
+                <div id="BtnSection" hidden>
+                    <button id="Edit" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+                    <button id="Delete" class="Btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <h3 id="Category"></h3>
+                <h1 id="Title"></h1>
+                <img id="Image" src=""/>
+                <p id="Date"></p>
+                <p id="Desc"></p>
+            </div>
+        </div>
+        </div>
+</body>
     <script src="JS/script.js" defer></script>
 </html>
