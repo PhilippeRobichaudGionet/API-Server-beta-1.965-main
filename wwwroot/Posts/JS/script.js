@@ -1,4 +1,7 @@
+const API_URL = "http://localhost:5000/api/Post";
+
 $(document).ready(function(){
+    //Get DOM Element
     let EditBtn = $("#Edit");
     let DeleteBtn = $("#Delete");
     let NewZone = $("#News");
