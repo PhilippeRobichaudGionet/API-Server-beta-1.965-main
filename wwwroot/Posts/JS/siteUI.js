@@ -20,10 +20,13 @@ function Init_UI() {
     $('#abort').on("click", async function () {
         $("#aboutContainer").hide();
         $("#errorContainer").hide();
+        $("#News").show();
         $("#abort").hide();
+        $("#add").show();
         $("#search").show();
         $("#scrollPanel").show();
-        $("#actionTitle").text("Mots");
+        $("#actionTitle").text("Fil de nouvelles");
+        EraseForm();
     });
     $('#aboutCmd').on("click", function () {
         renderAbout();
@@ -38,6 +41,7 @@ function Init_UI() {
         e.preventDefault();
         renderAdd()
     });
+    $("#Edit").click
 }
 function doSearch() {
     search = $("#searchKey").val().replace(' ', ',');
@@ -72,11 +76,11 @@ function renderAdd(post = null) {
         post = newNews();
         post.Image = "Image/News-Logo.jpg";
     }
-    $("#createContact").hide();
+    $("#add").hide();
     $("#abort").show();
-    eraseContent(); 
+    $("#News").hide();
     $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
-    $("#content").append(`
+    $("#scrollPanel").append(`
         <form class="form" id="postForm">
             <label for="Title" class="form-label">Titre</label>
             <input
@@ -139,7 +143,16 @@ function renderAdd(post = null) {
     });
 
     $('#cancel').on("click", function () {
-        renderPosts();
+        $("#aboutContainer").hide();
+        $("#errorContainer").hide();
+        
+        $("#News").show();
+        $("#abort").hide();
+        $("#add").show();
+        $("#search").show();
+        $("#scrollPanel").show();
+        $("#actionTitle").text("Fil de nouvelles");
+        EraseForm();
     });
     
 }
@@ -159,6 +172,7 @@ function showWaitingGif() {
     $("#content").append($("<div class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));
 }
 async function renderPosts(queryString = "") {
+    $("add").show();
     if (search != "") queryString += "&keywords=" + search;
     addWaitingGif();
     let posts = await API.getPosts(queryString);
@@ -188,7 +202,7 @@ function renderPost(post) {
     return $(`
     <div class="Newsrow">
         <div class="BtnSection">
-            <button id="Edit" value="${post.id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+            <button id="Edit" value="${post.Id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark" onclick="API.deletePost('${post.Id}')"></i></button>
         </div>
 
@@ -202,7 +216,9 @@ function renderPost(post) {
         <p id="Desc">${post.Text}</p>
     </div>
     <br><br>    
-    `);
+    `).on('click', '#Edit', async function() {
+        renderAdd(post);  // Passe l'objet complet du post à renderAdd
+    });;
 }
 
 function newNews() {
@@ -216,4 +232,7 @@ function newNews() {
 }
 function eraseContent() {
     $("#content").empty();
+}
+function EraseForm(){
+    $("#postForm").remove();
 }
