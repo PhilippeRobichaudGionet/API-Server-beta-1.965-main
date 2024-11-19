@@ -80,7 +80,7 @@ function renderAdd(post = null) {
     let create = post === null;
     if (create) {
         post = newNews();
-        post.Image = "Image/News-Logo.jpg";
+        post.PhotoImageData = "../assetsRepository/News-Logo.jpg";
     }
     $("#add").hide();
     $("#abort").show();
@@ -122,7 +122,7 @@ function renderAdd(post = null) {
             <div   class='imageUploader' 
                    newImage='${create}' 
                    controlId='PhotoImageData' 
-                   imageSrc='${post.PhotoImageData}' 
+                   imageSrc='../assetsRepository/${post.PhotoImageData}' 
                    waitingImage="Loading_icon.gif">
             </div>
             <hr>
@@ -233,7 +233,7 @@ function newNews() {
     News.Title = "";
     News.Text = "";
     News.Category = "";
-    News.Image = "";
+    News.PhotoImageData = "";
     News.Creation = frenchTodayDate();
     return News;
 }
