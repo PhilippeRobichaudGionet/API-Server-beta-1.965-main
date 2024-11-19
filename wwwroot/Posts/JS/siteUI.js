@@ -66,50 +66,86 @@ function renderError(message) {
         `)
     );
 }
-function renderAdd(){
-    $("#scrollPanel").hide();
-    $("#abort").hide();
-    $("#search").hide();
-    $("#actionTitle").text("Ajouter");
-    $("#aboutContainer").hide();
-    $("#AddPost").show();
-    News = newNews()
+function renderAdd(post = null) {
+    let create = post === null;
+    if (create) {
+        post = newNews();
+        post.Image = "Image/News-Logo.jpg";
+    }
+
+    $("#createContact").hide();
+    $("#abort").show();
+    eraseContent(); 
+
+    $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
+
     $("#content").append(`
-        <form class="form" id="BookmarkForm">
-            <label for="Title" class="form-label">Titre </label>
-            <input 
-                class="form-control Alpha"
-                name="Title" 
-                id="Title" 
+        <form class="form" id="postForm">
+            <label for="Title" class="form-label">Titre</label>
+            <input
+                class="form-control"
+                name="Title"
+                id="Title"
                 placeholder="Titre"
                 required
-                RequireMessage="Veuillez entrer un titre"
-                InvalidMessage="Le titre comporte un caractère illégal"
+                value="${post.Title}"
             />
-            <br><br>
-            <label for="Text" class="form-label">Text </label>
-            <input
-                class="form-control Text"
+            <br>
+            <label for="Text" class="form-label">Texte</label>
+            <textarea
+                class="form-control"
                 name="Text"
                 id="Text"
-                placeholder="Text"
+                placeholder="Texte"
                 required
-            />
-            <br><br>
-            <label for="Category" class="form-label">Catégorie </label>
-            <input 
+            >${post.Text}</textarea>
+            <br>
+            <label for="Category" class="form-label">Catégorie</label>
+            <input
                 class="form-control"
                 name="Category"
                 id="Category"
                 placeholder="Catégorie"
                 required
+                value="${post.Category}"
             />
-            <br><br>
-            <input type="submit" value="Enregistrer" id="saveBookmark" class="btn btn-primary">
-            <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
+            <br>
+            <!-- Uploader d'image -->
+            <label class="form-label">Image</label>
+            <div 
+                class="imageUploader"
+                newImage="${create}"
+                controlId="Image"
+                imageSrc="${post.Image}"
+                waitingImage="Loading_icon.gif"
+            ></div>
+            <hr>
+            <button type="submit" id="savePost" class="btn btn-primary">Enregistrer</button>
+            <button type="button" id="cancel" class="btn btn-secondary">Annuler</button>
         </form>
     `);
+
+    initImageUploaders();
+    initFormValidation();
+
+    $('#postForm').on("submit", async function (event) {
+        event.preventDefault();
+        let postData = getFormData($("#postForm")); 
+        showWaitingGif();
+
+        let result = await API_SavePost(postData, create);
+        if (result) {
+            renderPosts();
+        } else {
+            renderError("Une erreur est survenue lors de l'enregistrement !");
+        }
+    });
+
+    $('#cancel').on("click", function () {
+        renderPosts(); 
+    });
 }
+
 async function renderPosts(queryString) {
     if (search != "") queryString += "&keywords=" + search;
     addWaitingGif();
@@ -157,4 +193,7 @@ function newNews() {
     News.Image = "";
     News.Creation = 0;
     return News;
+}
+function eraseContent() {
+    $("#content").empty();
 }
