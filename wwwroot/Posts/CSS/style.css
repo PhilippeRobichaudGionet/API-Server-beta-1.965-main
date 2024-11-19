@@ -50,3 +50,16 @@ body{
 #Delete #Edit{
     cursor: pointer;
 }
+
+#SearchSection{
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    width: 100%;
+    height: 60px;
+}
+#searchKey{
+    cursor: pointer;
+}
+.highlight {
+    background-color: yellow;
+}
