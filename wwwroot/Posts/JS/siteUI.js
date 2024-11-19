@@ -148,7 +148,6 @@ function renderAdd(post = null) {
     });
 
     $('#cancel').on("click", function () {
-<<<<<<< Updated upstream
         $("#aboutContainer").hide();
         $("#errorContainer").hide();
 
@@ -159,10 +158,6 @@ function renderAdd(post = null) {
         $("#scrollPanel").show();
         $("#actionTitle").text("Fil de nouvelles");
         EraseForm();
-=======
-        $("content").empty();
-        renderPosts(); 
->>>>>>> Stashed changes
     });
 
 }
