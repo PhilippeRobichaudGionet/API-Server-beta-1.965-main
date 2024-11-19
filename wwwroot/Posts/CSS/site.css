@@ -43,8 +43,8 @@ divx {
     border-radius: 9px;
     background-color: white;
     display: grid;
-    grid-template-columns: 50px auto 190px 30px;
-    align-items: center;
+    grid-template-columns: 50px auto 40px 50px 30px;
+    align-items: stretch;
     padding: 8px;
 }
 #content {

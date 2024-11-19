@@ -2,7 +2,7 @@ body{
     font-family:Arial, Helvetica, sans-serif;
 }
 
-#News{
+#NewsRow{
     background-color: white;
     border-radius: 5px;
 }
@@ -35,4 +35,7 @@ body{
 }
 #BtnSection{
     float: right;
+}
+#actionTitle{
+    margin-top: 10px;
 }

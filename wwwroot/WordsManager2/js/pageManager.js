@@ -36,7 +36,7 @@ class PageManager {
             limit = limit * (offset + 1);
             offset = 0;
         }
-        return `?limit=${limit}&offset=${offset}`;
+        //return `?limit=${limit}&offset=${offset}`;
     }
     scrollToElem(elemId) {
         this.scrollPanel.animate({ 

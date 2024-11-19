@@ -10,8 +10,8 @@ function Init_UI() {
         height: $("#sample").outerHeight()
     };
 
-    pageManager = new PageManager('scrollPanel', 'wordsPanel', wordItemLayout, renderWords);
-    $("#actionTitle").text("Mots");
+    pageManager = new PageManager('scrollPanel', 'News', PostItemLayout, renderPosts);
+    $("#actionTitle").text("Fil de nouvelles");
     $("#search").show();
     $("#abort").hide();
     $('#aboutContainer').hide();
@@ -34,6 +34,10 @@ function Init_UI() {
     $('#doSearch').on('click', () => {
         doSearch();
     })
+    $('#add').click(function (e) { 
+        e.preventDefault();
+        renderAdd()
+    });
 }
 function doSearch() {
     search = $("#searchKey").val().replace(' ', ',');
@@ -62,16 +66,60 @@ function renderError(message) {
         `)
     );
 }
+function renderAdd(){
+    $("#scrollPanel").hide();
+    $("#abort").hide();
+    $("#search").hide();
+    $("#actionTitle").text("Ajouter");
+    $("#aboutContainer").hide();
+    $("#AddPost").show();
+    News = newNews()
+    $("#content").append(`
+        <form class="form" id="BookmarkForm">
+            <label for="Title" class="form-label">Titre </label>
+            <input 
+                class="form-control Alpha"
+                name="Title" 
+                id="Title" 
+                placeholder="Titre"
+                required
+                RequireMessage="Veuillez entrer un titre"
+                InvalidMessage="Le titre comporte un caractère illégal"
+            />
+            <br><br>
+            <label for="Text" class="form-label">Text </label>
+            <input
+                class="form-control Text"
+                name="Text"
+                id="Text"
+                placeholder="Text"
+                required
+            />
+            <br><br>
+            <label for="Category" class="form-label">Catégorie </label>
+            <input 
+                class="form-control"
+                name="Category"
+                id="Category"
+                placeholder="Catégorie"
+                required
+            />
+            <br><br>
+            <input type="submit" value="Enregistrer" id="saveBookmark" class="btn btn-primary">
+            <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
+        </form>
+    `);
+}
 async function renderPosts(queryString) {
     if (search != "") queryString += "&keywords=" + search;
     addWaitingGif();
     let endOfData = true;
-    let words = await API.getWords(queryString);
+    let posts = await API.getPosts(queryString);
     if (API.error)
         renderError(API.currentHttpError);
     else
-        if (words.length > 0) {
-            words.forEach(word => { $("#wordsPanel").append(renderWord(word)); });
+        if (posts.length > 0) {
+            posts.forEach(post => { $("#News").append(renderPost(post)); });
             endOfData = false;
         } else
             removeWaitingGif();
@@ -84,18 +132,29 @@ function removeWaitingGif() {
     $("#waitingGif").remove();
 }
 
-function renderWord(word) {
+function renderPost(post) {
     return $(`
-     <div class="wordRow" word_id=${word.Id}">
-        <div class="wordContainer ">
-            <div class="wordLayout">
-                 <div></div>
-                 <div class="wordInfo">
-                    <span class="word">${word.Val}</span>
-                    <span class="wordDef">${word.Def}</span>                   
-                </div>
-            </div>      
+    <div id="Newsrow">
+        <div id="BtnSection" hidden>
+            <button id="Edit" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+            <button id="Delete" class="Btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
-    </div>           
+
+        <h3 id="Category">${post.Category}</h3>
+        <h1 id="Title">${post.Title}</h1>
+        <img id="Image" src="${post.Image}"/>
+        <p id="Date">${post.Creation}</p>
+        <p id="Desc">${post.Text}</p>
+    </div>    
     `);
+}
+
+function newNews() {
+    News = {};
+    News.Title = "";
+    News.Text = "";
+    News.Category = "";
+    News.Image = "";
+    News.Creation = 0;
+    return News;
 }
