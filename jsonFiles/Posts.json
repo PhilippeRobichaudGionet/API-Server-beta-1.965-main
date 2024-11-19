@@ -4,7 +4,15 @@
         "Title": "sdgdfg",
         "Text": "dfghfgh",
         "Category": "Jeux",
-        "Image": "e0e92bc0-a61b-11ef-80fe-53ef2e2e8d87.gif",
+        "PhotoImageData": "e0e92bc0-a61b-11ef-80fe-53ef2e2e8d87.gif",
+        "Creation": 2024
+    },
+    {
+        "Id": "c94e8f70-a678-11ef-8974-e134adb69e0b",
+        "Title": "sdf",
+        "Text": "sdfs",
+        "Category": "Réseaux sociaux",
+        "PhotoImageData": "c9503d20-a678-11ef-8974-e134adb69e0b.png",
         "Creation": 2024
     }
 ]

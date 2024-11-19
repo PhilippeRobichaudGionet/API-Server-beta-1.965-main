@@ -121,8 +121,8 @@ function renderAdd(post = null) {
             <label class="form-label">PostImage: </label>
             <div   class='imageUploader' 
                    newImage='${create}' 
-                   controlId='Image' 
-                   imageSrc='${post.Image}' 
+                   controlId='PhotoImageData' 
+                   imageSrc='${post.PhotoImageData}' 
                    waitingImage="Loading_icon.gif">
             </div>
             <hr>
@@ -217,7 +217,7 @@ function renderPost(post) {
         <br>
         <h1 id="Title">${post.Title}</h1>
         <br>
-        <img id="Image" src="../assetsRepository/${post.Image}"/>
+        <img id="Image" src="../assetsRepository/${post.PhotoImageData}"/>
         <p id="Date">${post.Creation}</p>
         <br>
         <p id="Desc">${post.Text}</p>
