@@ -240,12 +240,8 @@ function newNews() {
     return News;
 }
 function eraseContent() {
-<<<<<<< Updated upstream
     $("#content").empty();
 }
 function EraseForm() {
     $("#postForm").remove();
-=======
-    $("#News").empty();
->>>>>>> Stashed changes
 }
