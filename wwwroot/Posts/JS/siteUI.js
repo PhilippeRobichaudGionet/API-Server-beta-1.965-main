@@ -166,8 +166,7 @@ async function renderPosts(queryString) {
         renderError(API.currentHttpError);
     else
         if (posts.length > 0) {
-            let i = 1;
-            posts.forEach(post => { $("#News").append(renderPost(post,i)); i++});
+            posts.forEach(post => { $("#News").append(renderPost(post));});
             endOfData = false;
         } else
             removeWaitingGif();
@@ -180,10 +179,10 @@ function removeWaitingGif() {
     $("#waitingGif").remove();
 }
 
-function renderPost(post,elemNum) {
+function renderPost(post) {
     return $(`
-    <div id="Newsrow">
-        <div id="BtnSection${elemNum}" hidden>
+    <div class="Newsrow" onhover=>
+        <div class="BtnSection">
             <button id="Edit" class="Btn"><i class="fa-solid fa-pencil"></i></button>
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark"></i></button>
         </div>

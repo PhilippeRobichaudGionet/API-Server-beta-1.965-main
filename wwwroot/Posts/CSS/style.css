@@ -2,7 +2,7 @@ body{
     font-family:Arial, Helvetica, sans-serif;
 }
 
-#Newsrow{
+.Newsrow{
     background-color: white;
     border-radius: 5px;
     padding: 25px;
@@ -10,9 +10,11 @@ body{
     margin-right: auto;
     width: 75%;
 }
-#Newsrow:hover{
+.Newsrow:hover .BtnSection{
+    display: block;
+}
+.Newsrow:hover{
     background-color: lightgray;
-
 }
 #Category{
     color:blue;
@@ -38,8 +40,9 @@ body{
     border-radius: 5px;
     padding: 6px;
 }
-#BtnSection{
+.BtnSection{
     float: right;
+    display: none;
 }
 #actionTitle{
     margin-top: 10px;
