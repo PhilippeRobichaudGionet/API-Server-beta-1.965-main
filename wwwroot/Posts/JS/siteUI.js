@@ -80,7 +80,7 @@ function renderAdd(post = null) {
     let create = post === null;
     if (create) {
         post = newNews();
-        post.Image = "Image/News-Logo.jpg";
+        post.PhotoImageData = "../assetsRepository/News-Logo.jpg";
     }
     $("#add").hide();
     $("#abort").show();
@@ -88,7 +88,8 @@ function renderAdd(post = null) {
     $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
     $("#scrollPanel").append(`
         <form class="form" id="postForm">
-            <input value="${post.Id}" hidden/>
+
+            <input id="Id" name="Id" value="${post.Id}" hidden/>
             <label for="Title" class="form-label TitreLabel">Titre:</label>
             <input
                 class="form-control"
@@ -123,7 +124,7 @@ function renderAdd(post = null) {
             <div   class='imageUploader' 
                    newImage='${create}' 
                    controlId='PhotoImageData' 
-                   imageSrc='${post.PhotoImageData}' 
+                   imageSrc='../assetsRepository/${post.PhotoImageData}' 
                    waitingImage="Loading_icon.gif">
             </div>
             <hr>
@@ -210,7 +211,7 @@ function renderPost(post) {
     return $(`
     <div class="Newsrow">
         <div class="BtnSection">
-            <button id="Edit" value="${post.Id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+            <button id="Edit" value="${post}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark" onclick="API.deletePost('${post.Id}')"></i></button>
         </div>
 
@@ -226,7 +227,10 @@ function renderPost(post) {
     <br><br>    
     `).on('click', '#Edit', async function () {
         renderAdd(post);
-    });;
+    })
+    .on('click', '#Delete', async function () {
+        API.deletePost(post.Id);
+    });
 }
 
 function newNews() {
@@ -234,7 +238,7 @@ function newNews() {
     News.Title = "";
     News.Text = "";
     News.Category = "";
-    News.Image = "";
+    News.PhotoImageData = "";
     News.Creation = frenchTodayDate();
     return News;
 }
