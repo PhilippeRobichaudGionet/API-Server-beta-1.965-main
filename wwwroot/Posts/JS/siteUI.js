@@ -207,11 +207,7 @@ function renderPost(post) {
     return $(`
     <div class="Newsrow">
         <div class="BtnSection">
-<<<<<<< Updated upstream
             <button id="Edit" value="${post.Id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
-=======
-            <button id="Edit" class="Btn"><i class="fa-solid fa-pencil" onclick="renderAdd('${post}')"></i></button>
->>>>>>> Stashed changes
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark" onclick="API.deletePost('${post.Id}')"></i></button>
         </div>
 
