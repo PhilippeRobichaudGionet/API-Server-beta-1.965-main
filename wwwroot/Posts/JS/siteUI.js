@@ -256,26 +256,46 @@ function EraseForm() {
     $("#postForm").remove();
 }
 function convertToFrenchDate(numeric_date) {
-    date = new Date(numeric_date);
-    var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    var opt_weekday = { weekday: 'long' };
-    var weekday = toTitleCase(date.toLocaleDateString("fr-CA", opt_weekday));
+    // Ensure the input is a string for slicing
+    const dateString = String(numeric_date);
+    
+    // Extract date and time components
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6) - 1; // Month is 0-indexed
+    const day = dateString.slice(6, 8);
+    const hour = dateString.slice(8, 10);
+    const minute = dateString.slice(10, 12);
+    const second = dateString.slice(12, 14);
 
-    function toTitleCase(str) {
-        return str.replace(
-            /\w\S*/g,
-            function (txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            }
-        );
-    }
-    return weekday + " le " + date.toLocaleDateString("fr-CA", options) + " - " + date.toLocaleTimeString("fr-CA");
+    // Create a new Date object
+    const date = new Date(year, month, day, hour, minute, second);
+
+    // Format the date in French
+    const formattedDate = new Intl.DateTimeFormat('fr-FR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    }).format(date);
+
+    // Format the time in HH:mm:ss
+    const formattedTime = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
+
+    // Combine the formatted date and time
+    const result = `${formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1)} - ${formattedTime}`;
+
+    return result;
 }
+
 function GetTodayNum(){
     const date = new Date();
-    const year = date.getFullYear();   // e.g., 2024
-    const month = date.getMonth() + 1; // e.g., 11 (months are 0-indexed)
-    const day = date.getDate();    
-    console.log(parseInt(`${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`));
-    return parseInt(`${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; 
+    const day = date.getDate();     
+    const hour = date.getHours();      
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
+
+    const result = parseInt(`${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}${String(hour).padStart(2, '0')}${String(minute).padStart(2, '0')}${String(second).padStart(2, '0')}`);
+    return result;
 }
