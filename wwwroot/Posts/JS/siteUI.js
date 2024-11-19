@@ -88,6 +88,7 @@ function renderAdd(post = null) {
     $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
     $("#scrollPanel").append(`
         <form class="form" id="postForm">
+            <input value="${post.Id}" hidden/>
             <label for="Title" class="form-label TitreLabel">Titre:</label>
             <input
                 class="form-control"
