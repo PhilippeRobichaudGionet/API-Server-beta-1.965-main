@@ -72,13 +72,10 @@ function renderAdd(post = null) {
         post = newNews();
         post.Image = "Image/News-Logo.jpg";
     }
-
     $("#createContact").hide();
     $("#abort").show();
     eraseContent(); 
-
     $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
-
     $("#content").append(`
         <form class="form" id="postForm">
             <label for="Title" class="form-label">Titre</label>
@@ -127,13 +124,13 @@ function renderAdd(post = null) {
 
     initImageUploaders();
     initFormValidation();
-
     $('#postForm').on("submit", async function (event) {
         event.preventDefault();
         let postData = getFormData($("#postForm")); 
         showWaitingGif();
 
-        let result = await API_SavePost(postData, create);
+        let result = await API.API_SavePost(postData, create);
+
         if (result) {
             renderPosts();
         } else {
@@ -145,7 +142,21 @@ function renderAdd(post = null) {
         renderPosts(); 
     });
 }
+function getFormData($form) {
+    const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
+    var jsonObject = {};
+    $.each($form.serializeArray(), (index, control) => {
+        jsonObject[control.name] = control.value.replace(removeTag, "");
+    });
+    jsonObject["Creation"] = new Date().toISOString();
 
+    return jsonObject;
+}
+
+function showWaitingGif() {
+    eraseContent();
+    $("#content").append($("<div class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));
+}
 async function renderPosts(queryString) {
     if (search != "") queryString += "&keywords=" + search;
     addWaitingGif();
@@ -191,7 +202,7 @@ function newNews() {
     News.Text = "";
     News.Category = "";
     News.Image = "";
-    News.Creation = 0;
+    News.Creation= new Date().toISOString();
     return News;
 }
 function eraseContent() {
