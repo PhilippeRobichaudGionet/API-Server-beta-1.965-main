@@ -88,6 +88,7 @@ function renderAdd(post = null) {
     $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
     $("#scrollPanel").append(`
         <form class="form" id="postForm">
+            
             <label for="Title" class="form-label TitreLabel">Titre:</label>
             <input
                 class="form-control"
@@ -209,7 +210,7 @@ function renderPost(post) {
     return $(`
     <div class="Newsrow">
         <div class="BtnSection">
-            <button id="Edit" value="${post.Id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+            <button id="Edit" value="${post}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark" onclick="API.deletePost('${post.Id}')"></i></button>
         </div>
 
@@ -225,7 +226,10 @@ function renderPost(post) {
     <br><br>    
     `).on('click', '#Edit', async function () {
         renderAdd(post);
-    });;
+    })
+    .on('click', '#Delete', async function () {
+        API.deletePost(post.Id);
+    });
 }
 
 function newNews() {

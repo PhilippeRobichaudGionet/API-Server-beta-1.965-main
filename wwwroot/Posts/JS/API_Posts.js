@@ -38,18 +38,33 @@ class API {
     }
     static API_SavePost(post, create) {
         API.initHttpState();
-        console.log("Données envoyées au serveur :", post); // Ajout du log
+        console.log("Données envoyées au serveur :", post);
+        console.log(post.Id);
+        // Validate post and ID for PUT
+        if (!create && !post.Id) {
+            console.error("Cannot update post: Missing 'Id' property in the post object.");
+            return Promise.resolve(false);
+        }
+    
         return new Promise(resolve => {
             $.ajax({
-                url: create ? API_URL :  API_URL + "/" + post.Id,
+                url: create ? API_URL : `${API_URL}/${post.Id}`,
                 type: create ? "POST" : "PUT",
                 contentType: 'application/json',
                 data: JSON.stringify(post),
-                success: (/*data*/) => { currentHttpError = ""; resolve(true); },
-                error: (xhr) => {currentHttpError = xhr.responseJSON.error_description; resolve(false /*xhr.status*/); }
+                success: () => {
+                    this.currentHttpError = "";
+                    resolve(true);
+                },
+                error: (xhr) => {
+                    this.currentHttpError = xhr.responseJSON ? xhr.responseJSON.error_description : xhr.statusText;
+                    console.error("Failed to save post:", this.currentHttpError);
+                    resolve(false);
+                }
             });
         });
     }
+    
     static deletePost(id) {
         API.initHttpState();
         return new Promise(resolve => {
