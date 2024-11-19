@@ -1,18 +1,1 @@
-[
-    {
-        "Id": "d5a6e290-9d3b-11ef-b31e-3d948f0ef9dd",
-        "Title": "Bonsoir",
-        "Text": "LOBOTOMY",
-        "Category": "Santé",
-        "Image": "./image/bonsoir.png",
-        "Creation": 2025
-    },
-    {
-        "Id": "d5a6e290-9d3b-11ef-b31e-3d948f0ef9dd",
-        "Title": "Bojour",
-        "Text": "Kémy",
-        "Category": "Vente",
-        "Image": "./image/bonsoir.png",
-        "Creation": 2025
-    }
-]
+[{"Id":"d5a6e290-9d3b-11ef-b31e-3d948f0ef9dd","Title":"Bonsoir","Text":"LOBOTOMY","Category":"Santé","Image":"./image/bonsoir.png","Creation":2025},{"Id":"d5a6e290-9d3b-11ef-b31e-3d948f0ef9dd","Title":"Bojour","Text":"Kémy","Category":"Vente","Image":"./image/bonsoir.png","Creation":2025},{"Id":"4dbd3650-a613-11ef-85e0-9d397d4c9cd6","Title":"sdgsdfg","Text":"sdgsdfg","Category":"Jeux","Image":"4dbd5d60-a613-11ef-85e0-9d397d4c9cd6.png","Creation":2024}]

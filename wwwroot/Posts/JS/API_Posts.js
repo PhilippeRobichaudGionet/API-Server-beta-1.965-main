@@ -26,6 +26,7 @@ class API {
         });
     }
     static getPost(postId) {
+        console.log("bonsoir");
         API.initHttpState();
         return new Promise(resolve => {
             $.ajax({
@@ -35,15 +36,16 @@ class API {
             });
         });
     }
-    static savePost(post, create) {
+    static API_SavePost(post, create) {
         API.initHttpState();
+        console.log("Données envoyées au serveur :", post); // Ajout du log
         return new Promise(resolve => {
             $.ajax({
                 url: create ? API_URL : API_URL + "/" + post.Id,
                 type: create ? "POST" : "PUT",
                 contentType: 'application/json',
-                data: JSON.stringify(post),
-                success: (/*data*/) => { resolve(true); },
+                data: JSON.stringify(post), 
+                success: () => { resolve(true); },
                 error: (xhr) => { API.setHttpErrorState(xhr); resolve(null); }
             });
         });
