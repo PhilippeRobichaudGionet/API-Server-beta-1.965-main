@@ -119,7 +119,8 @@ async function renderPosts(queryString) {
         renderError(API.currentHttpError);
     else
         if (posts.length > 0) {
-            posts.forEach(post => { $("#News").append(renderPost(post)); });
+            let i = 1;
+            posts.forEach(post => { $("#News").append(renderPost(post,i)); i++});
             endOfData = false;
         } else
             removeWaitingGif();
@@ -132,20 +133,24 @@ function removeWaitingGif() {
     $("#waitingGif").remove();
 }
 
-function renderPost(post) {
+function renderPost(post,elemNum) {
     return $(`
     <div id="Newsrow">
-        <div id="BtnSection" hidden>
+        <div id="BtnSection${elemNum}" hidden>
             <button id="Edit" class="Btn"><i class="fa-solid fa-pencil"></i></button>
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <h3 id="Category">${post.Category}</h3>
+        <br>
         <h1 id="Title">${post.Title}</h1>
+        <br>
         <img id="Image" src="${post.Image}"/>
         <p id="Date">${post.Creation}</p>
+        <br>
         <p id="Desc">${post.Text}</p>
-    </div>    
+    </div>
+    <br><br>    
     `);
 }
 

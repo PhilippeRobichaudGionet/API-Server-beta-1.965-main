@@ -3,10 +3,15 @@ $(document).ready(function(){
     let EditBtn = $("#Edit");
     let DeleteBtn = $("#Delete");
     let NewZone = $("#Newsrow");
-    let BtnSection = $("#BtnSection");
-    // Show/Hide Button
-    NewZone.hover(function () { BtnSection.show(); }, function () { BtnSection.hide(); });
-
+    let parent;
+    let child;
+    for (let index = 1; $("#BtnSection" + index).length; index++) {
+        child = $("#BtnSection" + index)
+        parent = child.parent();
+        
+        parent.hover(function () { child.show(); }, function () { child.hide(); });
+        console.log("#BtnSection" + index);
+    }
     EditBtn.click(function (e) { 
          
     });
