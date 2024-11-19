@@ -37,7 +37,7 @@ function Init_UI() {
     $('#doSearch').on('click', () => {
         doSearch();
     })
-    $('#add').click(function (e) { 
+    $('#add').click(function (e) {
         e.preventDefault();
         renderAdd()
     });
@@ -111,15 +111,14 @@ function renderAdd(post = null) {
                 value="${post.Category}"
             />
             <br>
-            <!-- Uploader d'image -->
-            <label class="form-label">Image</label>
-            <div 
-                class="imageUploader"
-                newImage="${create}"
-                controlId="Image"
-                imageSrc="${post.Image}"
-                waitingImage="Loading_icon.gif"
-            ></div>
+            <!-- nécessite le fichier javascript 'imageControl.js' -->
+            <label class="form-label">Avatar </label>
+            <div   class='imageUploader' 
+                   newImage='${create}' 
+                   controlId='Avatar' 
+                   imageSrc='${post.Image}' 
+                   waitingImage="Loading_icon.gif">
+            </div>
             <hr>
             <button type="submit" id="savePost" class="btn btn-primary">Enregistrer</button>
             <button type="button" id="cancel" class="btn btn-secondary">Annuler</button>
@@ -130,7 +129,7 @@ function renderAdd(post = null) {
     initFormValidation();
     $('#postForm').on("submit", async function (event) {
         event.preventDefault();
-        let postData = getFormData($("#postForm")); 
+        let postData = getFormData($("#postForm"));
         showWaitingGif();
 
         let result = await API.API_SavePost(postData, create);
@@ -145,7 +144,7 @@ function renderAdd(post = null) {
     $('#cancel').on("click", function () {
         $("#aboutContainer").hide();
         $("#errorContainer").hide();
-        
+
         $("#News").show();
         $("#abort").hide();
         $("#add").show();
@@ -154,7 +153,7 @@ function renderAdd(post = null) {
         $("#actionTitle").text("Fil de nouvelles");
         EraseForm();
     });
-    
+
 }
 function getFormData($form) {
     const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
@@ -181,7 +180,7 @@ async function renderPosts(queryString = "") {
     } else {
         if (posts.length > 0) {
             posts.forEach(post => {
-                $("#News").append(renderPost(post)); 
+                $("#News").append(renderPost(post));
             });
         } else {
             renderError("Aucun post trouvé.");
@@ -216,8 +215,8 @@ function renderPost(post) {
         <p id="Desc">${post.Text}</p>
     </div>
     <br><br>    
-    `).on('click', '#Edit', async function() {
-        renderAdd(post);  // Passe l'objet complet du post à renderAdd
+    `).on('click', '#Edit', async function () {
+        renderAdd(post);
     });;
 }
 
@@ -227,12 +226,12 @@ function newNews() {
     News.Text = "";
     News.Category = "";
     News.Image = "";
-    News.Creation= new Date().toISOString();
+    News.Creation = new Date().toISOString();
     return News;
 }
 function eraseContent() {
     $("#content").empty();
 }
-function EraseForm(){
+function EraseForm() {
     $("#postForm").remove();
 }
