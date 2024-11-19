@@ -139,8 +139,9 @@ function renderAdd(post = null) {
     });
 
     $('#cancel').on("click", function () {
-        renderPosts(); 
+        renderPosts();
     });
+    
 }
 function getFormData($form) {
     const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
@@ -157,21 +158,25 @@ function showWaitingGif() {
     eraseContent();
     $("#content").append($("<div class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));
 }
-async function renderPosts(queryString) {
+async function renderPosts(queryString = "") {
     if (search != "") queryString += "&keywords=" + search;
     addWaitingGif();
-    let endOfData = true;
     let posts = await API.getPosts(queryString);
-    if (API.error)
+    if (API.error) {
         renderError(API.currentHttpError);
-    else
+    } else {
         if (posts.length > 0) {
-            posts.forEach(post => { $("#News").append(renderPost(post));});
-            endOfData = false;
-        } else
-            removeWaitingGif();
+            posts.forEach(post => {
+                $("#News").append(renderPost(post)); 
+            });
+        } else {
+            renderError("Aucun post trouvé.");
+        }
+    }
+    removeWaitingGif();
     return true;
 }
+
 function addWaitingGif() {
     $("#wordsPanel").append($("<div id='waitingGif' class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));
 }
