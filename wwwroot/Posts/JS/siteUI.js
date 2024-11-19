@@ -94,7 +94,7 @@ function renderAdd(post = null) {
             <input id="Id" name="Id" value="${post.Id}" hidden/>
             <label for="Title" class="form-label TitreLabel">Titre:</label>
             <input
-                class="form-control Alpha"
+                class="form-control"
                 name="Title"
                 id="Title"
                 placeholder="Titre"
