@@ -88,7 +88,7 @@ function renderAdd(post = null) {
     $("#actionTitle").text(create ? "Créer un post" : "Modifier le post");
     $("#scrollPanel").append(`
         <form class="form" id="postForm">
-            <label for="Title" class="form-label">Titre</label>
+            <label for="Title" class="form-label TitreLabel">Titre:</label>
             <input
                 class="form-control"
                 name="Title"
@@ -98,7 +98,7 @@ function renderAdd(post = null) {
                 value="${post.Title}"
             />
             <br>
-            <label for="Text" class="form-label">Texte</label>
+            <label for="Text" class="form-label">Texte:</label>
             <textarea
                 class="form-control"
                 name="Text"
@@ -107,7 +107,7 @@ function renderAdd(post = null) {
                 required
             >${post.Text}</textarea>
             <br>
-            <label for="Category" class="form-label">Catégorie</label>
+            <label for="Category" class="form-label">Catégorie:</label>
             <input
                 class="form-control"
                 name="Category"
@@ -118,10 +118,10 @@ function renderAdd(post = null) {
             />
             <br>
             <!-- nécessite le fichier javascript 'imageControl.js' -->
-            <label class="form-label">Avatar </label>
+            <label class="form-label">PostImage: </label>
             <div   class='imageUploader' 
                    newImage='${create}' 
-                   controlId='Avatar' 
+                   controlId='Image' 
                    imageSrc='${post.Image}' 
                    waitingImage="Loading_icon.gif">
             </div>
@@ -161,6 +161,7 @@ function renderAdd(post = null) {
     });
 
 }
+
 function getFormData($form) {
     const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
     var jsonObject = {};
@@ -176,6 +177,7 @@ function showWaitingGif() {
     eraseContent();
     $("#content").append($("<div class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));
 }
+
 async function renderPosts(queryString = "") {
     $("add").show();
     if (search != "") queryString += "&keywords=" + search;
@@ -232,7 +234,7 @@ function newNews() {
     News.Text = "";
     News.Category = "";
     News.Image = "";
-    News.Creation = new Date().toISOString();
+    News.Creation = frenchTodayDate();
     return News;
 }
 function eraseContent() {
@@ -240,4 +242,16 @@ function eraseContent() {
 }
 function EraseForm() {
     $("#postForm").remove();
+}
+const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ]
+
+function frenchTodayDate() {
+
+  let today = new Date();
+  let year = today.getFullYear()
+  let dayNumber = today.getDate()
+  let month = mois[today.getMonth()]
+  let weekday = today.toLocaleDateString("fr-FR", { weekday: "long" });
+
+  return { weekday, dayNumber, month, year }
 }

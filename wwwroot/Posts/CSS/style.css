@@ -21,6 +21,7 @@ body{
     text-transform: uppercase;
 }
 #Title{
+
 }
 #Image{
     width: 100%;
@@ -62,4 +63,8 @@ body{
 }
 .highlight {
     background-color: yellow;
+}
+
+#postForm{
+    font-weight: bold;
 }
