@@ -17,12 +17,19 @@ class API {
 
     static getPosts(query = "") {
         API.initHttpState();
+        //console.log(API_URL + query);
         return new Promise(resolve => {
             $.ajax({
                 url: API_URL + query,
-                success: posts => { resolve(posts); },
-                error: (xhr) => { API.setHttpErrorState(xhr); resolve(null); }
-            });
+                success: posts => {
+                    //console.log(posts);
+                     resolve(posts); },
+                error: (xhr, status, error) => {
+                    console.error("Erreur AJAX :", status, error, xhr.responseText);
+                    API.setHttpErrorState(xhr);
+                    resolve(null);
+                }
+            });            
         });
     }
     static getPost(postId) {

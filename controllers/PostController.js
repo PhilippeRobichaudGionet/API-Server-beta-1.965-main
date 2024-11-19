@@ -26,24 +26,24 @@ export default
                 this.repository.getAll(this.HttpContext.path.params, this.repository.ETag)
             );
         }
-    getFilteredPosts() {
-        const { title, text, category } = this.params;
-        let posts = this.repository.getAll(this.HttpContext.path.params, this.repository.ETag);
-        // Filtrage par mot-clé dans le titre ou texte
-        if (title || text) {
-            const MotFiltre = (title || text).toLowerCase();
-            posts = posts.filter(post =>
-                (post.Title && post.Title.toLowerCase().includes(MotFiltre)) ||
-                (post.Text && post.Text.toLowerCase().includes(MotFiltre))
-            );
+        getFilteredPosts() {
+            const { keywords } = this.params;
+            let posts = this.repository.getAll(this.HttpContext.path.params, this.repository.ETag);
+            const filterKeyword = keywords ? keywords.toLowerCase() : null;
+        
+            if (filterKeyword) {
+                posts = posts.filter(post =>
+                    (post.Title && post.Title.toLowerCase().includes(filterKeyword)) ||
+                    (post.Text && post.Text.toLowerCase().includes(filterKeyword)) ||
+                    (post.Category && post.Category.toLowerCase().includes(filterKeyword))
+                );
+            }
+        
+            if (posts && posts.length > 0) {
+                this.HttpContext.response.JSON(posts);
+            } else {
+                this.error("Aucun post ne correspond aux paramètres.");
+            }
         }
-        if (category) {
-            posts = posts.filter(post => post.category === category);
-        }
-        if (posts!= null &&posts.length > 0 ) {
-            this.HttpContext.response.JSON(posts);
-        } else {
-            this.error("Aucun post ne correspond aux paramètres.");
-        }
-    }
+        
 }

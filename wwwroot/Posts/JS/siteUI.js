@@ -34,9 +34,12 @@ function Init_UI() {
     $('#searchKey').on('click', () => {
         SearchAppear();
     })
-    $('#PostSearch').change(function() {
-        Searching($('#PostSearch').text)
+    $('#PostSearch').change(function () {
+        const keyword = $('#PostSearch').val().trim();
+        search = keyword; 
+        renderPosts(); 
     });
+    
 
     $('#add').click(function (e) { 
         $("#add").show();
@@ -188,9 +191,10 @@ function showWaitingGif() {
 
 async function renderPosts(queryString = "") {
     if (search != ""){
-        queryString += "&keywords=" + search;
+        queryString += "?keywords=" + search;
     } 
     addWaitingGif();
+    $("#News").empty();
     let posts = await API.getPosts(queryString);
     if (API.error) {
         renderError(API.currentHttpError);
