@@ -41,12 +41,12 @@ class API {
         console.log("Données envoyées au serveur :", post); // Ajout du log
         return new Promise(resolve => {
             $.ajax({
-                url: create ? API_URL : API_URL + "/" + post.Id,
+                url: create ? API_URL :  API_URL + "/" + post.Id,
                 type: create ? "POST" : "PUT",
                 contentType: 'application/json',
-                data: JSON.stringify(post), 
-                success: () => { resolve(true); },
-                error: (xhr) => { API.setHttpErrorState(xhr); resolve(null); }
+                data: JSON.stringify(post),
+                success: (/*data*/) => { currentHttpError = ""; resolve(true); },
+                error: (xhr) => {currentHttpError = xhr.responseJSON.error_description; resolve(false /*xhr.status*/); }
             });
         });
     }

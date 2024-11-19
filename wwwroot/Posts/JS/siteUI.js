@@ -192,7 +192,7 @@ function renderPost(post,elemNum) {
         <br>
         <h1 id="Title">${post.Title}</h1>
         <br>
-        <img id="Image" src="${post.Image}"/>
+        <img id="Image" src="../assetsRepository/${post.Image}"/>
         <p id="Date">${post.Creation}</p>
         <br>
         <p id="Desc">${post.Text}</p>
