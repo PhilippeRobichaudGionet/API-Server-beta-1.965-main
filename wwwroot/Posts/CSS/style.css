@@ -47,3 +47,6 @@ body{
 #actionTitle{
     margin-top: 10px;
 }
+#Delete #Edit{
+    cursor: pointer;
+}
