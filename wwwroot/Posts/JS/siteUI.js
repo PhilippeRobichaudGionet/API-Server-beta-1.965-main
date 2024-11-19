@@ -181,10 +181,10 @@ function removeWaitingGif() {
 
 function renderPost(post) {
     return $(`
-    <div class="Newsrow" onhover=>
+    <div class="Newsrow">
         <div class="BtnSection">
-            <button id="Edit" class="Btn"><i class="fa-solid fa-pencil"></i></button>
-            <button id="Delete" class="Btn"><i class="fa-solid fa-xmark"></i></button>
+            <button id="Edit" value="${post.id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+            <button id="Delete" class="Btn"><i class="fa-solid fa-xmark" onclick="API.deletePost('${post.Id}')"></i></button>
         </div>
 
         <h3 id="Category">${post.Category}</h3>

@@ -52,6 +52,7 @@ class API {
     }
     static deletePost(id) {
         API.initHttpState();
+        console.log("Delete");
         return new Promise(resolve => {
             $.ajax({
                 url: API_URL + "/" + id,
