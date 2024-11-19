@@ -31,21 +31,27 @@ function Init_UI() {
     $('#aboutCmd').on("click", function () {
         renderAbout();
     });
-    $("#searchKey").on("change", () => {
-        doSearch();
+
+    $('#searchKey').on('click', () => {
+        SearchAppear();
     })
-    $('#doSearch').on('click', () => {
-        doSearch();
-    })
+    $("PostSearch").change(function() {
+        
+    });
+
     $('#add').click(function (e) { 
         e.preventDefault();
         renderAdd()
     });
     $("#Edit").click
 }
-function doSearch() {
-    search = $("#searchKey").val().replace(' ', ',');
-    pageManager.reset();
+function SearchAppear() {
+    let SearchBar = $("#SearchSection");
+    if (SearchBar.is(":hidden")){
+        SearchBar.show();
+    }else{
+        SearchBar.hide();
+    }
 }
 function renderAbout() {
     $("#scrollPanel").hide();
@@ -143,6 +149,7 @@ function renderAdd(post = null) {
     });
 
     $('#cancel').on("click", function () {
+<<<<<<< Updated upstream
         $("#aboutContainer").hide();
         $("#errorContainer").hide();
         
@@ -153,6 +160,10 @@ function renderAdd(post = null) {
         $("#scrollPanel").show();
         $("#actionTitle").text("Fil de nouvelles");
         EraseForm();
+=======
+        $("content").empty();
+        renderPosts(); 
+>>>>>>> Stashed changes
     });
     
 }
@@ -202,7 +213,11 @@ function renderPost(post) {
     return $(`
     <div class="Newsrow">
         <div class="BtnSection">
+<<<<<<< Updated upstream
             <button id="Edit" value="${post.Id}" class="Btn"><i class="fa-solid fa-pencil"></i></button>
+=======
+            <button id="Edit" class="Btn"><i class="fa-solid fa-pencil" onclick="renderAdd('${post}')"></i></button>
+>>>>>>> Stashed changes
             <button id="Delete" class="Btn"><i class="fa-solid fa-xmark" onclick="API.deletePost('${post.Id}')"></i></button>
         </div>
 
@@ -231,8 +246,12 @@ function newNews() {
     return News;
 }
 function eraseContent() {
+<<<<<<< Updated upstream
     $("#content").empty();
 }
 function EraseForm(){
     $("#postForm").remove();
+=======
+    $("#News").empty();
+>>>>>>> Stashed changes
 }
