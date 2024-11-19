@@ -171,6 +171,43 @@ form {
     padding: 20px;
     max-width: 350px;
     margin: auto;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form .form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+form .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+form .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+form .btn-secondary {
+    background-color: #6c757d;
+    color: white;
 }
 
 .errorContainer {
@@ -200,7 +237,9 @@ form {
     text-decoration: none !important;
     color: white !important;
 }
-
+input {
+    margin-bottom: 20px !important;
+}
 a {
     text-decoration: none !important;
 }

@@ -94,7 +94,7 @@ function renderAdd(post = null) {
             <input id="Id" name="Id" value="${post.Id}" hidden/>
             <label for="Title" class="form-label TitreLabel">Titre:</label>
             <input
-                class="form-control"
+                class="form-control Alpha"
                 name="Title"
                 id="Title"
                 placeholder="Titre"
@@ -130,6 +130,7 @@ function renderAdd(post = null) {
                    waitingImage="Loading_icon.gif">
             </div>
             <hr>
+            <br><br>
             <button type="submit" id="savePost" class="btn btn-primary">Enregistrer</button>
             <button type="button" id="cancel" class="btn btn-secondary">Annuler</button>
         </form>
@@ -249,8 +250,6 @@ function eraseContent() {
 function EraseForm() {
     $("#postForm").remove();
 }
-
-
 function convertToFrenchDate(numeric_date) {
     date = new Date(numeric_date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -265,7 +264,7 @@ function convertToFrenchDate(numeric_date) {
             }
         );
     }
-    return weekday + " le " + date.toLocaleDateString("fr-CA", options) + " @ " + date.toLocaleTimeString("fr-CA");
+    return weekday + " le " + date.toLocaleDateString("fr-CA", options) + " - " + date.toLocaleTimeString("fr-CA");
 }
 function GetTodayNum(){
     const date = new Date();
