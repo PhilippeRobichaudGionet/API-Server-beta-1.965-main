@@ -9,7 +9,6 @@ function Init_UI() {
         width: $("#sample").outerWidth(),
         height: $("#sample").outerHeight()
     };
-
     pageManager = new PageManager('scrollPanel', 'News', PostItemLayout, renderPosts);
     $("#actionTitle").text("Fil de nouvelles");
     $("#search").show();
@@ -18,8 +17,8 @@ function Init_UI() {
     $("#errorContainer").hide();
 
     $('#abort').on("click", async function () {
+        $('#aboutCmd').show();
         $("#aboutContainer").hide();
-        $("#errorContainer").hide();
         $("#News").show();
         $("#abort").hide();
         $("#add").show();
@@ -40,8 +39,8 @@ function Init_UI() {
     });
 
     $('#add').click(function (e) { 
-        e.preventDefault();
-        renderAdd()
+        $("#add").show();
+        renderAdd();
     });
     $("#Edit").click
 }
@@ -54,15 +53,18 @@ function SearchAppear() {
     }
 }
 function renderAbout() {
-    $("#scrollPanel").hide();
+    $("#News").hide();
     $("#abort").show();
     $("#search").hide();
+    $('#aboutCmd').hide();
     $("#actionTitle").text("À propos...");
     $("#aboutContainer").show();
+    $("#add").hide();
 }
 function renderError(message) {
     removeWaitingGif();
     $("#scrollPanel").hide();
+    $("#aboutContainer").hide();
     $("#abort").show();
     $("#search").hide();
     $("#actionTitle").text("Erreur du serveur...");
@@ -170,7 +172,7 @@ function getFormData($form) {
     $.each($form.serializeArray(), (index, control) => {
         jsonObject[control.name] = control.value.replace(removeTag, "");
     });
-    jsonObject["Creation"] = new Date().toISOString();
+    jsonObject["Creation"] = GetTodayNum();
 
     return jsonObject;
 }
@@ -181,7 +183,6 @@ function showWaitingGif() {
 }
 
 async function renderPosts(queryString = "") {
-    $("add").show();
     if (search != "") queryString += "&keywords=" + search;
     addWaitingGif();
     let posts = await API.getPosts(queryString);
@@ -220,7 +221,7 @@ function renderPost(post) {
         <h1 id="Title">${post.Title}</h1>
         <br>
         <img id="Image" src="../assetsRepository/${post.PhotoImageData}"/>
-        <p id="Date">${post.Creation}</p>
+        <p id="Date">${convertToFrenchDate(post.Creation)}</p>
         <br>
         <p id="Desc">${post.Text}</p>
     </div>
@@ -239,7 +240,7 @@ function newNews() {
     News.Text = "";
     News.Category = "";
     News.PhotoImageData = "";
-    News.Creation = frenchTodayDate();
+    News.Creation = 0;
     return News;
 }
 function eraseContent() {
@@ -248,15 +249,29 @@ function eraseContent() {
 function EraseForm() {
     $("#postForm").remove();
 }
-const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ]
 
-function frenchTodayDate() {
 
-  let today = new Date();
-  let year = today.getFullYear()
-  let dayNumber = today.getDate()
-  let month = mois[today.getMonth()]
-  let weekday = today.toLocaleDateString("fr-FR", { weekday: "long" });
+function convertToFrenchDate(numeric_date) {
+    date = new Date(numeric_date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    var opt_weekday = { weekday: 'long' };
+    var weekday = toTitleCase(date.toLocaleDateString("fr-CA", opt_weekday));
 
-  return { weekday, dayNumber, month, year }
+    function toTitleCase(str) {
+        return str.replace(
+            /\w\S*/g,
+            function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+    }
+    return weekday + " le " + date.toLocaleDateString("fr-CA", options) + " @ " + date.toLocaleTimeString("fr-CA");
+}
+function GetTodayNum(){
+    const date = new Date();
+    const year = date.getFullYear();   // e.g., 2024
+    const month = date.getMonth() + 1; // e.g., 11 (months are 0-indexed)
+    const day = date.getDate();    
+    console.log(parseInt(`${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`));
+    return parseInt(`${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`);
 }
