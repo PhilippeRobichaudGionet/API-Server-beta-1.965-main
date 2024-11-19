@@ -26,7 +26,6 @@ class API {
         });
     }
     static getPost(postId) {
-        console.log("bonsoir");
         API.initHttpState();
         return new Promise(resolve => {
             $.ajax({

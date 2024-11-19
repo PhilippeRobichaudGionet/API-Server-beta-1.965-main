@@ -34,8 +34,8 @@ function Init_UI() {
     $('#searchKey').on('click', () => {
         SearchAppear();
     })
-    $("PostSearch").change(function() {
-        
+    $('#PostSearch').change(function() {
+        Searching($('#PostSearch').text)
     });
 
     $('#add').click(function (e) { 
@@ -43,6 +43,9 @@ function Init_UI() {
         renderAdd();
     });
     $("#Edit").click
+}
+function Searching(text){
+    renderPosts(text);
 }
 function SearchAppear() {
     let SearchBar = $("#SearchSection");
@@ -184,7 +187,9 @@ function showWaitingGif() {
 }
 
 async function renderPosts(queryString = "") {
-    if (search != "") queryString += "&keywords=" + search;
+    if (search != ""){
+        queryString += "&keywords=" + search;
+    } 
     addWaitingGif();
     let posts = await API.getPosts(queryString);
     if (API.error) {
